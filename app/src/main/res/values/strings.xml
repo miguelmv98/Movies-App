@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Título</string>
+    <string name="nav_header_subtitle">Subtítulo</string>
+    <string name="action_favorite">Favorito</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_search">Buscar</string>
+    <string name="show_director">show_director</string>
+    <string name="show_title">show_title</string>
+    <string name="show_year">show_year</string>
+    <string name="close">Close</string>
+</resources>

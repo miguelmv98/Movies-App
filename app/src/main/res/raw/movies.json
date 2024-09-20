@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Spider-Man: No Way Home",
+    "year": 2021,
+    "director": "Jon Watts",
+    "coverUrl": "https://posters.movieposterdb.com/21_12/2021/10872600/l_10872600_c809b67f.jpg",
+    "synopsis": "Peter Parker seeks help from Doctor Strange to erase his identity as Spider-Man, but things go wrong.",
+    "actors": "Tom Holland, Zendaya, Benedict Cumberbatch"
+  },
+  {
+    "title": "Dune",
+    "year": 2021,
+    "director": "Denis Villeneuve",
+    "coverUrl": "https://posters.movieposterdb.com/21_08/2021/1160419/l_1160419_565d3d10.jpg",
+    "synopsis": "Paul Atreides, a gifted young man, must travel to the desert planet Arrakis to secure his family's future.",
+    "actors": "Timothée Chalamet, Rebecca Ferguson, Oscar Isaac"
+  },
+  {
+    "title": "Thor: Ragnarok",
+    "year": 2017,
+    "director": "Taika Waititi",
+    "coverUrl": "https://posters.movieposterdb.com/22_05/2017/3501632/l_3501632_a7aaa3d6.jpg",
+    "synopsis": "Thor must escape the alien planet Sakaar in time to save Asgard from Hela and the impending Ragnarok.",
+    "actors": "Chris Hemsworth, Tom Hiddleston, Cate Blanchett"
+  },
+  {
+    "title": "No Time to Die",
+    "year": 2021,
+    "director": "Cary Joji Fukunaga",
+    "coverUrl": "https://posters.movieposterdb.com/21_05/2020/2382320/l_2382320_5636ee3a.jpg",
+    "synopsis": "James Bond comes out of retirement to take on a mission to rescue a kidnapped scientist.",
+    "actors": "Daniel Craig, Léa Seydoux, Rami Malek"
+  },
+  {
+    "title": "The Batman",
+    "year": 2022,
+    "director": "Matt Reeves",
+    "coverUrl": "https://posters.movieposterdb.com/22_02/2022/1877830/l_1877830_764432ad.jpg",
+    "synopsis": "A reclusive Batman hunts down a serial killer targeting Gotham's elites, uncovering deeper corruption.",
+    "actors": "Robert Pattinson, Zoë Kravitz, Paul Dano"
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "year": 2022,
+    "director": "Joseph Kosinski",
+    "coverUrl": "https://posters.movieposterdb.com/22_05/2020/1745960/l_1745960_cc176006.jpg",
+    "synopsis": "Maverick trains a new generation of Top Gun pilots for a dangerous mission.",
+    "actors": "Tom Cruise, Miles Teller, Jennifer Connelly"
+  },
+  {
+    "title": "Eternals",
+    "year": 2021,
+    "director": "Chloé Zhao",
+    "coverUrl": "https://posters.movieposterdb.com/22_05/2021/9032400/l_9032400_884dd0a2.jpg",
+    "synopsis": "A group of ancient, immortal beings must reunite to protect Earth from a long-forgotten threat.",
+    "actors": "Gemma Chan, Richard Madden, Angelina Jolie"
+  },
+  {
+    "title": "Joker",
+    "year": 2019,
+    "director": "Todd Phillips",
+    "coverUrl": "https://posters.movieposterdb.com/21_02/2019/7286456/l_7286456_6027d846.jpg",
+    "synopsis": "A troubled comedian spirals into insanity, becoming the infamous Joker in a chaotic Gotham City.",
+    "actors": "Joaquin Phoenix, Robert De Niro, Zazie Beetz"
+  },
+  {
+    "title": "Ant-Man",
+    "year": 2015,
+    "director": "Peyton Reed",
+    "coverUrl": "https://posters.movieposterdb.com/15_05/2015/478970/l_478970_97cc34db.jpg",
+    "synopsis": "Scott Lang, a thief, is recruited by Dr. Hank Pym to become Ant-Man and pull off a heist to save the world.",
+    "actors": "Paul Rudd, Michael Douglas, Evangeline Lilly"
+  },
+  {
+    "title": "Avengers: Endgame",
+    "year": 2019,
+    "director": "Anthony Russo, Joe Russo",
+    "coverUrl": "https://posters.movieposterdb.com/20_05/2019/4154796/l_4154796_2542f70b.jpg",
+    "synopsis": "The Avengers assemble for one final battle to undo the damage caused by Thanos and save the universe.",
+    "actors": "Robert Downey Jr., Chris Evans, Scarlett Johansson"
+  }
+]

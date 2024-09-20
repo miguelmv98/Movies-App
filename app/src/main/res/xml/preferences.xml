@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="Visualización">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/show_title"
+            android:title="Mostrar título" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/show_year"
+            android:title="Mostrar año" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/show_director"
+            android:title="Mostrar director" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
