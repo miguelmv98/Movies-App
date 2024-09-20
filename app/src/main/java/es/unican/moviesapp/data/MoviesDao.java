@@ -10,23 +10,45 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import es.unican.moviesapp.R;
 import es.unican.moviesapp.models.Movie;
 
+/**
+ * Data Access Object for managing movies. It reads movie data from a JSON file
+ * and provides methods to retrieve, add, remove, and update movies.
+ */
 public class MoviesDao {
 
-    private final List<Movie> movies = new ArrayList<>();
+    /**
+     * Cached list of movies
+     */
+    private final List<Movie> movies;
+
+    /**
+     * Application context used to access resources, such as the json file
+     */
     private final Context context;
 
+    /**
+     * Constructs a new MoviesDao.
+     *
+     * @param context The application context used to access resources.
+     */
     public MoviesDao(Context context) {
         this.context = context;
-        init();
+        this.movies = createMoviesList();
     }
 
-    private void init() {
+    /**
+     * Reads movie data from a JSON file (R.raw.movies) and creates a list of Movie objects.
+     *
+     * @return A list of Movie objects or null if an error occurs.
+     */
+    private List<Movie> createMoviesList() {
+        List<Movie> result = null;
         try {
             InputStream is = context.getResources().openRawResource(R.raw.movies);
             int size = is.available();
@@ -41,31 +63,47 @@ public class MoviesDao {
             Gson gson = new Gson();
             Type movieListType = new TypeToken<List<Movie>>() {
             }.getType();
-            List<Movie> _movies = gson.fromJson(json, movieListType);
-            movies.addAll(_movies);
-
-            //        movies.add(new Movie("The Godfather", R.drawable.godfather, 1972", "Francis Ford Coppola"));
-            //        movies.add(new Movie("Pulp Fiction", R.drawable.pulp_fiction, "1994", "Quentin Tarantino"));
-            //        movies.add(new Movie("Inception", R.drawable.dark_knight, "2010", "Christopher Nolan"));
-            //        movies.add(new Movie("The Dark Knight", R.drawable.inception, "2008", "Christopher Nolan"));
+            result = gson.fromJson(json, movieListType);
 
         } catch (IOException e) {
             Log.e(MoviesDao.class.getSimpleName(), "Error reading movies.json", e);
         }
+
+        return result;
     }
 
+    /**
+     * Returns an unmodifiable list of movies.
+     *
+     * @return An unmodifiable list of Movie objects.
+     */
     public List<Movie> getMovies() {
-        return movies;
+        return Collections.unmodifiableList(movies);
     }
 
+    /**
+     * Adds a new movie to the list.
+     *
+     * @param movie The movie to be added.
+     */
     public void addMovie(Movie movie) {
         movies.add(movie);
     }
 
+    /**
+     * Removes a movie from the list.
+     *
+     * @param movie The movie to be removed.
+     */
     public void removeMovie(Movie movie) {
         movies.remove(movie);
     }
 
+    /**
+     * Updates an existing movie in the list.
+     *
+     * @param movie The updated movie object.
+     */
     public void updateMovie(Movie movie) {
         movies.set(movies.indexOf(movie), movie);
     }

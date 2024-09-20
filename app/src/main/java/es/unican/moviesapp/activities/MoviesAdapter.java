@@ -5,76 +5,131 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import es.unican.moviesapp.R;
 import es.unican.moviesapp.models.Movie;
 
-public class MoviesAdapter extends BaseAdapter implements Filterable {
+/**
+ * Custom adapter for displaying a list of movies in a ListView.
+ */
+public class MoviesAdapter extends BaseAdapter {
 
+    /**
+     * The list of movie objects to be displayed.
+     */
     private final List<Movie> movies;
+
+    /**
+     * The context in which the adapter is operating.
+     */
     private final Context context;
-    private final View.OnClickListener listener;
 
-    private final List<Movie> filteredMovies;
-    private CustomFilter filter;
+    /**
+     * Flag indicating whether to display the movie title.
+     */
+    private boolean showTitle = true;
 
-    private boolean showTitle= true;
+    /**
+     * Flag indicating whether to display the movie director.
+     */
     private boolean showDirector = true;
+
+    /**
+     * Flag indicating whether to display the movie year.
+     */
     private boolean showYear = true;
 
-    public MoviesAdapter(Context context, List<Movie> movies, View.OnClickListener listener) {
+    /**
+     * Constructs a new MoviesAdapter.
+     *
+     * @param context The context in which the adapter is operating.
+     * @param movies  The list of movies to be displayed.
+     */
+    public MoviesAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
-        this.listener = listener;
-        this.filteredMovies = new ArrayList<>(movies);
     }
 
+    /**
+     * Gets the number of movies in the list.
+     *
+     * @return The number of movies.
+     */
     @Override
     public int getCount() {
-        return filteredMovies.size();
+        return movies.size();
     }
 
+    /**
+     * Gets the movie object at the specified position.
+     *
+     * @param position The position of the movie.
+     * @return The movie object.
+     */
     @Override
     public Object getItem(int position) {
-        return filteredMovies.get(position);
+        return movies.get(position);
     }
 
+    /**
+     * Gets the item ID associated with the specified position.
+     *
+     * @param position The position of the item.
+     * @return The item ID.
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Sets whether to display the movie title.
+     *
+     * @param showTitle True to display the title, false otherwise.
+     */
     public void setShowTitle(boolean showTitle) {
         this.showTitle = showTitle;
     }
 
+    /**
+     * Sets whether to display the movie director.
+     *
+     * @param showDirector True to display the director, false otherwise.
+     */
     public void setShowDirector(boolean showDirector) {
         this.showDirector = showDirector;
     }
 
+    /**
+     * Sets whether to display the movie year.
+     *
+     * @param showYear True to display the year, false otherwise.
+     */
     public void setShowYear(boolean showYear) {
         this.showYear = showYear;
     }
 
+    /**
+     * Gets a View that displays the data at the specified position in the data set.
+     *
+     * @param position    The position of the item within the adapter's data set of the item whose view we want.
+     * @param convertView The old view to reuse, if possible. Note: You should check that this view is non-null and of an appropriate type before using. If it is not possible to convert this view to display the correct data, this method can create a new view. Heterogeneous lists can specify their number of view types, so that this View is always of the right type (see getViewTypeCount() and getItemViewType(int)).
+     * @param parent      The parent that this view will eventually be attached to.
+     * @return A View corresponding to the data at the specified position.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.movies_list_item_layout, parent, false);
         }
-        convertView.setOnClickListener(listener);
 
         ImageView ivCover = convertView.findViewById(R.id.ivCover);
         TextView tvTitle = convertView.findViewById(R.id.tvTitle);
@@ -83,7 +138,7 @@ public class MoviesAdapter extends BaseAdapter implements Filterable {
 
         Movie movie = (Movie) getItem(position);
         assert movie != null;
-        convertView.setTag(movie);
+        convertView.setTag(movie);  // this way the movie is accessible from the listener
 
         int width = (int) context.getResources().getDimension(R.dimen.cover_width);
         Picasso.get().load(movie.getCoverUrl())
@@ -99,54 +154,7 @@ public class MoviesAdapter extends BaseAdapter implements Filterable {
         tvYear.setVisibility(showYear ? View.VISIBLE : View.GONE);
         tvDirector.setVisibility(showDirector ? View.VISIBLE : View.GONE);
 
-
         return convertView;
     }
 
-    @NonNull
-    @Override
-    public Filter getFilter() {
-        if (filter == null) {
-            filter = new CustomFilter();
-        }
-        return filter;
-    }
-
-    class CustomFilter extends Filter {
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
-            List<Movie> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(movies);
-            } else {
-                String pattern = constraint.toString().toUpperCase().trim();
-                for (Movie movie : movies) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(movie.getTitle());
-                    sb.append(movie.getYear());
-                    sb.append(movie.getDirector());
-                    String movieString = sb.toString().toUpperCase();
-
-                    if (movieString.contains(pattern)) {
-                        filteredList.add(movie);
-                    }
-                }
-            }
-
-            results.count = filteredList.size();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredMovies.clear();
-            filteredMovies.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    }
 }
