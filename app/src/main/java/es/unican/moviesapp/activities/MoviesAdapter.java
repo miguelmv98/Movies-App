@@ -126,10 +126,19 @@ public class MoviesAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        // Create the view that will contain the elements shown in each row of the ListView
+        // Since this view (named "convertView") can be reutilized, only create it when needed
+        // If there is no need to create it, just replace its contents
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.movies_list_item_layout, parent, false);
         }
+
+        // TODO: fill the contents of "contentView" with the information of the movie at position "position"
+        // The widgets of the view are defined in the layout file "movies_list_item_layout.xml"
+
+        /*
 
         ImageView ivCover = convertView.findViewById(R.id.ivCover);
         TextView tvTitle = convertView.findViewById(R.id.tvTitle);
@@ -154,7 +163,10 @@ public class MoviesAdapter extends BaseAdapter {
         tvYear.setVisibility(showYear ? View.VISIBLE : View.GONE);
         tvDirector.setVisibility(showDirector ? View.VISIBLE : View.GONE);
 
+        */
+
         return convertView;
+
     }
 
 }

@@ -84,17 +84,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Create DAO
         moviesDao = new MoviesDao(this);
 
-        // Fetch layout widgets
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        ListView lvMovies = findViewById(R.id.lvMovies);
+        // Get layout widgets
+        drawerLayout = findViewById(R.id.drawer_layout);  // left-side drawer
+        NavigationView navigationView = findViewById(R.id.navigation_view);  // controls the drawer
+        Toolbar toolbar = findViewById(R.id.toolbar);  // upper toolbar
+        ListView lvMovies = findViewById(R.id.lvMovies);  // listview to show the list of movies
 
-        // Set the toolbar as the activity action bar
+        // Set the toolbar in the layout as the activity action bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Add button (hamburger) in actionbar to open drawer
+        // Add button (hamburger) in actionbar, and make it open the drawer
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -113,12 +113,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        // Fetch data from the DAO
+        // Get movies from the DAO, store them in allMovies and shownMovies
         fetchMovies();
 
-        // Set-up ListView
+        // Set-up Adapter for the ListView
         moviesAdapter = new MoviesAdapter(this, shownMovies);  // attaches shownMovies to the adapter
         configureAdapter(moviesAdapter);  // configures adapter with persisted settings
+
+        // Set-up the ListView with the Adapter created above
+
+        // TODO: find the reference to the ListView, and set its adapter
+
+        /*
+
         lvMovies.setAdapter(moviesAdapter);  // shows movies in ListView
 
         // When an item in the list is clicked, show the popup with movie details
@@ -129,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showMoviePopupDetails(movie);
             }
         });
+
+        */
     }
 
     /**
@@ -247,6 +256,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LayoutInflater inflater = MainActivity.this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.movie_dialog_layout, null);
 
+        // TODO fill the contents of "dialogView" with the information of the movie
+
+        /*
+
         ImageView ivCover = dialogView.findViewById(R.id.ivCover);
         TextView tvTitle = dialogView.findViewById(R.id.tvTitle);
         TextView tvDirector = dialogView.findViewById(R.id.tvDirector);
@@ -271,6 +284,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
+        */
     }
 
     /**
@@ -280,6 +295,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param substring The substring to filter the movie titles, years, and directors by.
      */
     private void filterMoviesList(String substring) {
+
+        // TODO filter the elements of "shownMovies" according to "substring"
+
+        /*
+
         shownMovies.clear();
         if (substring == null || substring.isEmpty()) {
             shownMovies.addAll(allMovies);
@@ -296,6 +316,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         }
+
+        */
     }
 
 }
