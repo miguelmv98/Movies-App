@@ -47,7 +47,7 @@ Dentro del `LinearLayout` se incluyen los dos elementos principales de la pantal
 
 El código de la actividad principal está definido en `MainActivity.java`. Incluye los siguientes métodos:
 
-- `onCreate`: este es el método que se ejecuta automáticamente cuando Android requiere crear la actividad. En la implementación actual configura el `DrawerLayout` instancia la DAO de películas (`MoviesDao`), y mediante una llamada el método `fetchMovies` obtiene de la DAO una lista de películas que almacena en `allMovies` y `shownMovies`. En este método inicialmente falta configurar el `ListView` para que muestre las películas.
+- `onCreate`: este es el método que se ejecuta automáticamente cuando Android requiere crear la actividad. En la implementación actual configura el `DrawerLayout`, instancia la DAO de películas (`MoviesDao`), y mediante una llamada el método `fetchMovies` obtiene de la DAO una lista de películas que almacena en `allMovies` y `shownMovies`. En este método inicialmente falta configurar el `ListView` para que muestre las películas.
 
 - `fetchMovies`: este es el método que se utiliza para pedir a la DAO una lista de películas.
 
@@ -103,37 +103,48 @@ if (convertView == null) {
 }
 ```
 
-Como primera tarea, hay que completar el código de `MoviesAdapter.getView` para que el objeto `View` que retorna contenga la información de la película número `position`. Para llevar a cabo esta tarea, se proporcionan los siguientes consejos:
+> [!IMPORTANT]
+> Como primera tarea, hay que completar el código de `MoviesAdapter.getView` para que el objeto `View` que retorne contenga la información de la película número `position`. Para llevar a cabo esta tarea, se proporcionan los siguientes consejos:
 
-- La película que está en la posición `position` se puede obtener a través del método que ya está implementado `getItem`
+> [!TIP]
+> La película que está en la posición `position` se puede obtener a través del método que ya está implementado `getItem`
 
-- Para obtener el puntero a los *widgets*, se puede usar el método `findViewById`. Por ejemplo, para obtener el `ImageView` se puede ejecutar:
+> [!TIP]
+> Para obtener el puntero a los *widgets*, se puede usar el método `findViewById`. Por ejemplo, para obtener el `ImageView` se puede ejecutar:
 
 ```java
 ImageView ivCover = convertView.findViewById(R.id.ivCover);
 ```
 
-- Para mostrar una imagen de interner en un `ImageView` se puede usar la librería [Picasso](https://square.github.io/picasso/) (ya instalada). Por ejemplo:
+> [!TIP]
+> Para mostrar una imagen de internet en un `ImageView` se puede usar la librería [Picasso](https://square.github.io/picasso/) (ya instalada). Por ejemplo:
 
 ```java
 Picasso.get().load(movie.getCoverUrl()).into(ivCover);
 ```
 
-Una vez completada la clase `MoviesAdapter`, hay que configurar el `ListView` para que la utilice. Esto se debe realizar en el método `MainActivity.onCreate`
+Con estas acciones, la clase `MoviesAdapter` queda completada.
 
-- Los objetos `ListView` tienen un método `setAdapter`
+> [!IMPORTANT] 
+> La siguiente tarea consiste en configurar el `ListView` para que utilice el *adapter*. Esto se debe realizar en el método `MainActivity.onCreate`
 
-Si se ha realizado la implementación correctamente, al iniciar la aplicación ahora debería mostrar una lista con la información de las películas
+> [!TIP]
+> Los objetos `ListView` tienen un método `setAdapter`
+
+Si se ha realizado la implementación correctamente, al iniciar la aplicación debería ahora mostrarse una lista con la información de las películas.
 
 ### Visualización de los detalles de una película
 
 El objetivo es hacer que al pulsar una película de la lista, se muestre en una ventana emergente información más detallada sobre la película. 
 
-Lo primero que hay que hacer es añadir un listener al `ListView` para que responda cuando se pulsa en una película. Esto se debe realizar en el método `MainActivity.onCreate`
+> [!IMPORTANT]
+> Lo primero que hay que hacer es añadir un listener al `ListView` para que responda cuando se pulsa en una película. Esto se debe realizar en el método `MainActivity.onCreate`
 
-- Los objetos `ListView` tienen un listener llamado `OnItemClickListener` que es el que responde cuando se pulsa un elemento de la lista.
+>[!TIP]
+> Los objetos `ListView` tienen un listener llamado `OnItemClickListener` que es el que responde cuando se pulsa un elemento de la lista.
 
-- En el listener tenemos que obtener el objeto `Movie` que se representa en la fila pulsada de la lista. Al método del listener se le proporcionan como parámetros la vista de la fila (el `View` que se creó previamente en `MoviesAdapter`, la posición pulsada, y un identificador la posición pulsada). Para obtener el objeto `Movie` asociado a la fila, se puede utilizar el número de la posición. Otra forma es mediante el atributo `tag` del `View`, en el que se puede almacenar cualquier objeto arbitrario:
+>[!TIP]
+> En el listener tenemos que obtener el objeto `Movie` que se representa en la fila pulsada de la lista. Al método del listener se le proporcionan como parámetros la vista de la fila (el `View` que se creó previamente en `MoviesAdapter`), la posición pulsada, y un identificador la posición pulsada. Para obtener el objeto `Movie` asociado a la fila, se puede utilizar el número de la posicióny acceder a la lista `List<Movie>`. Otra forma es mediante el atributo `tag` del `View`, en el que se puede almacenar cualquier objeto arbitrario:
 
 ```java
 // en MoviesAdapter
@@ -148,28 +159,40 @@ Movie movie = view.getTag()
 
 ```
 
-El listener deberá llamar al método `showMoviePopupDetails` que es el encargado de mostrar la ventana emergente. La siguiente tarea es por lo tanto completar este método `showMoviePopupDetails`.
+> [!TIP]
+> El listener debe llamar al método `showMoviePopupDetails`, que es el encargado de mostrar la ventana emergente. 
 
-Las ventanas flotantes en Android se llaman `AlertDialog`. Existen `AlertDialog` predefinidos para mostrar información básica, pero también permiten representar un layout que proporcionemos. En esta aplicación ya se ha creado el *layout* que se debe mostrar, y se encuentra en el fichero `res/layout/movie_dialog_layout.xml`. Este layout, adicionalmente a lo que ya se muestra en la lista, añade dos `TextView` adicionales:
+
+Las ventanas flotantes en Android se llaman `AlertDialog`. Existen `AlertDialog` predefinidos para mostrar información básica, pero también permiten representar cualquier layout que proporcionemos. En esta aplicación ya se ha creado el *layout* que se debe mostrar, y se encuentra en el fichero `res/layout/movie_dialog_layout.xml`. Este layout, adicionalmente a lo que ya se muestra en la lista, añade dos `TextView` adicionales:
 
 - Un `TextView` (id=`tvSynopsis`) para mostrar la sinopsis de la película.
 - Un `TextView` (id=`tvActors`) para mostrar los actores de la película
 
 En el código inicial de `showMoviePopupDetails` ya se infla este *layout*, y se almacena en la variable `dialogView`.
 
-La primera tarea por lo tanto es modificar este `dialogView` para que muestre la información de la película que ha sido pulsada (la película se suministra como parámetro del método).
+> [!IMPORTANT]
+> Por lo tanto debemos modificar este `dialogView` para que muestre la información de la película que ha sido pulsada (la película se suministra como parámetro del método).
 
-La siguiente tarea consiste en crear el `AlertDialog` para que muestre el contenido de `dialogView`:
+> [!TIP]
+> Utilizar el método `findViewById` para acceder a los elementos del `dialogView`
 
-- La creación de los `AlertDialog` se realiza utilizando el patrón *Builder*. Este objeto *builder* ya está creado (variable `builder`)
+>[!IMPORTANT]
+> La siguiente tarea consiste en crear el `AlertDialog` para que muestre el contenido de `dialogView`:
 
-- El *Builder* tiene un método `setView` para especificar qué contenido se debe mostrar en la ventana flotante.
+> [!TIP]
+> La creación de los `AlertDialog` se realiza utilizando el patrón *Builder*. Este objeto *builder* ya está creado (variable `builder`)
 
-- Es recomendable añadir un botón a la ventana flotante, para facilitar la acción de cerrar la ventana. La forma más sencilla de añadir un botón a la ventana es mediante el método `setPositiveButton` del *Builder.
+> [!TIP]
+> El *Builder* tiene un método `setView` para especificar qué contenido se debe mostrar en la ventana flotante.
 
-- El método `create` del *Builder* crea el objeto `AlertDialog`
+> [!TIP]
+> Es recomendable añadir un botón a la ventana flotante, para facilitar la acción de cerrar la ventana. La forma más sencilla de añadir un botón a la ventana es mediante el método `setPositiveButton` del *Builder*.
 
-- Los objetos `AlertDialog` tienen un méodo `show` para mostrar el diálogo por pantala
+> [!TIP]
+> El método `create` del *Builder* crea el objeto `AlertDialog`
+
+> [!TIP]
+> Los objetos `AlertDialog` tienen un méodo `show` para mostrar el diálogo por pantala
 
 Si se ha realizado la implementación correctamente, al pulsar sobre una película de la lista, se debería mostrar una ventana flotante con información adicional de la película
 
@@ -179,12 +202,16 @@ En el *OptionsMenu* se ha incluído un campo de texto para filtrar la lista de p
 
 En el método `onCreateOptionsMenu` se crea el *OptionsMenu*, y la referencia a este campo de búsqueda se almacena en la variable `searchView`. A continuación se establece un *listener* `OnQueryTextListener` que reacciona a cualquier cambio que se introduzca en el campo de texto. Específicamente, cuando se introduce (o elimina) un caracter en el campo de búsqueda, se llama al método `onQueryTextChange` de este listener. Su parámetro `newText` contiene el contenido completo del campo de búsqueda. El listener llama al método `filterMoviesList` que es el encargado de realizar el filtrado de la lista, y a continuación se notifica al adapter que los datos han cambiado mediante la llamada `moviesAdapter.notifyDataSetChanged();`
 
-La tarea a realizar consiste en completar la implementación de `filterMoviesList` para la lista de películas sea filtrada de acuerdo al texto que se introduce en el campo de búsqueda. Para realizar esta implementación hay que tener en cuenta las siguiente consideraciones:
+> [!IMPORTANT]
+> La tarea a realizar consiste en completar la implementación de `filterMoviesList` para filtrar la lista de películas de acuerdo al texto que se introduce en el campo de búsqueda. Para realizar esta implementación hay que tener en cuenta las siguiente consideraciones:
 
-- En `MainActivity` hay dos listas de películas: 
-    - `allMovies`: esta contiene todos los objetos `Movie` que se obtienen de la DAO.
-    - `shownMovies`: esta es la lista de los objetos `Movie` que se van a mostrar en el `ListView`. El adapter `MoviesAdapter` esta conectado a esta lista, de forma que si se quita una película de `shownMovies`, el `ListView` no la va a mostrar
-    - El fitrado se hace a partir de un *string* arbitrario. Se recomienda crear un *string* para cada película, por ejemplo, que concatene toda su información textual (título, director, etc.). 
+> [!TIP]
+> En `MainActivity` hay dos listas de películas: 
+>    - `allMovies`: esta contiene todos los objetos `Movie` que se obtienen de la DAO.
+>    - `shownMovies`: esta es la lista de los objetos `Movie` que se van a mostrar en el `ListView`. El adapter `MoviesAdapter` esta conectado a esta lista, de forma que si se quita una película de `shownMovies`, el `ListView` no la va a mostrar
+
+> [!TIP]
+> El fitrado se hace a partir de un *string* arbitrario. Se recomienda crear un *string* para cada película, por ejemplo, que concatene toda su información textual (título, director, etc.). 
 
 
 ### Configuración de la información que se muestra
@@ -194,7 +221,7 @@ En la aplicación se ha incluído una segunda actividad `SettingsActivity` para 
 - Mediante el botón de engranaje en el *OptionsMenu* (ver método `onOptionsItemSelected`)
 - Mediante el item en el `DrawerLayout`(ver método `onNavigationItemSelected`)
 
-La pantalla de configuración contiene 3 items para configurar qué información debe mostrarse en el `ListvView`
+La pantalla de configuración contiene 3 items para configurar qué información debe mostrarse en el `ListView`
 
 - *Switch* para mostrar el título de las películas o no. (key=`@string/show_title`)
 - *Checkbox* para mostrar el año de las películas o no. (key=`@string/show_year`)
@@ -202,15 +229,15 @@ La pantalla de configuración contiene 3 items para configurar qué información
 
 <img src="./img/settings.png" width="200"><p>
 
-Los elementos de esta pantalla están definidos en el fichero `res/xml/preferences.xml`. Para ver cómo se intancia el menú, se puede consultar el código de la actividad `SettingsActivity`.
+Los elementos de esta pantalla están definidos en el fichero `res/xml/preferences.xml`. Para ver cómo se intancia esta menú de configuración, se puede consultar el código de la actividad `SettingsActivity`.
 
-La información de esta pantalla de configuración es almacena y persistida automáticamente por Android. Se puede acceder programáticamente a este información mediante el objeto `SharedPreferences`:
+La información de esta pantalla de configuración es almacenada y persistida automáticamente por Android. Se puede acceder programáticamente a este información mediante el objeto `SharedPreferences`:
 
 ```java
-SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(<a context>);
 ```
 
-El objeto `SharedPreferences` almacena con clave-valor la configuración de la aplicación. Por ejemplo, el valor *booleano* de si se deben mostrar los títulos de las películas o no está almacenado en la clave `@string/show_title`, y para acceder a este valor:
+El objeto `SharedPreferences` almacena con clave-valor la configuración de la aplicación. Por ejemplo, el valor *boolean* de si se deben mostrar los títulos de las películas o no está almacenado en la clave `@string/show_title`, y para acceder a este valor:
 
 ```java
 boolean showTitle = sharedPreferences.getBoolean(getString(R.string.show_title), true);
@@ -218,6 +245,8 @@ boolean showTitle = sharedPreferences.getBoolean(getString(R.string.show_title),
 
 Cuando se sale de la pantalla de configuración, y se vuelve a la actividad principal, se ejecuta automáticamente el método `MainActivity.onRestart`. En este método se llama a `configureAdapter` para configurar el `MoviesAdapter` de acuerdo a la información de configuración persistida.
 
-Cómo última tarea se debe modificar `MoviesAdapter` para renderize los titulos, años y directores de forma condicional. Para realizar esta implementación hay que tener en cuenta las siguiente consideraciones:
+> [!IMPORTANT]
+> Cómo última tarea se debe modificar `MoviesAdapter` para que renderize los titulos, años y directores de forma condicional. Para realizar esta implementación hay que tener en cuenta las siguiente consideraciones:
 
-- `MoviesAdapter` ya tiene 3 atributos *boolean* que almacenan el estado de la configuración (`showTitle`, `showDirector`, `showYear`). Hay que modificar el método `getView` para tenerlos en cuenta.
+> [!TIP]
+> `MoviesAdapter` ya tiene 3 atributos *boolean* que almacenan el estado de la configuración (`showTitle`, `showDirector`, `showYear`). Hay que modificar el método `getView` para tenerlos en cuenta.

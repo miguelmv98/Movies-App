@@ -99,13 +99,4 @@ public class MoviesDao {
         movies.remove(movie);
     }
 
-    /**
-     * Updates an existing movie in the list.
-     *
-     * @param movie The updated movie object.
-     */
-    public void updateMovie(Movie movie) {
-        movies.set(movies.indexOf(movie), movie);
-    }
-
 }
