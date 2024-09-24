@@ -138,33 +138,6 @@ public class MoviesAdapter extends BaseAdapter {
         // TODO: fill the contents of "contentView" with the information of the movie at position "position"
         // The widgets of the view are defined in the layout file "movies_list_item_layout.xml"
 
-        /*
-
-        ImageView ivCover = convertView.findViewById(R.id.ivCover);
-        TextView tvTitle = convertView.findViewById(R.id.tvTitle);
-        TextView tvYear = convertView.findViewById(R.id.tvYear);
-        TextView tvDirector = convertView.findViewById(R.id.tvDirector);
-
-        Movie movie = (Movie) getItem(position);
-        assert movie != null;
-        convertView.setTag(movie);  // this way the movie is accessible from the listener
-
-        int width = (int) context.getResources().getDimension(R.dimen.cover_width);
-        Picasso.get().load(movie.getCoverUrl())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .resize(width, 0)
-                .centerCrop()
-                .into(ivCover);
-        tvTitle.setText(movie.getTitle());
-        tvYear.setText(String.format(Locale.getDefault(), "(%d)", movie.getYear()));
-        tvDirector.setText(movie.getDirector());
-
-        tvTitle.setVisibility(showTitle ? View.VISIBLE : View.GONE);
-        tvYear.setVisibility(showYear ? View.VISIBLE : View.GONE);
-        tvDirector.setVisibility(showDirector ? View.VISIBLE : View.GONE);
-
-        */
-
         return convertView;
 
     }

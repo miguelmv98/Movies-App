@@ -196,9 +196,9 @@ En el código inicial de `showMoviePopupDetails` ya se infla este *layout*, y se
 
 Si se ha realizado la implementación correctamente, al pulsar sobre una película de la lista, se debería mostrar una ventana flotante con información adicional de la película
 
-### Filtrado de la lista
+### Filtrado de la lista según título
 
-En el *OptionsMenu* se ha incluído un campo de texto para filtrar la lista de películas de acuerdo al *string* introducido en este campo de búsqueda. El siguiente objetivo es completar esta funcionalidad.
+En el *OptionsMenu* se ha incluído un campo de texto para filtrar la lista de películas de acuerdo al *string* introducido en este campo de búsqueda. El objetivo es filtrar la lista de películas de acuerdo a sus títulos.
 
 En el método `onCreateOptionsMenu` se crea el *OptionsMenu*, y la referencia a este campo de búsqueda se almacena en la variable `searchView`. A continuación se establece un *listener* `OnQueryTextListener` que reacciona a cualquier cambio que se introduzca en el campo de texto. Específicamente, cuando se introduce (o elimina) un caracter en el campo de búsqueda, se llama al método `onQueryTextChange` de este listener. Su parámetro `newText` contiene el contenido completo del campo de búsqueda. El listener llama al método `filterMoviesList` que es el encargado de realizar el filtrado de la lista, y a continuación se notifica al adapter que los datos han cambiado mediante la llamada `moviesAdapter.notifyDataSetChanged();`
 
@@ -211,7 +211,7 @@ En el método `onCreateOptionsMenu` se crea el *OptionsMenu*, y la referencia a 
 >    - `shownMovies`: esta es la lista de los objetos `Movie` que se van a mostrar en el `ListView`. El adapter `MoviesAdapter` esta conectado a esta lista, de forma que si se quita una película de `shownMovies`, el `ListView` no la va a mostrar
 
 > [!TIP]
-> El fitrado se hace a partir de un *string* arbitrario. Se recomienda crear un *string* para cada película, por ejemplo, que concatene toda su información textual (título, director, etc.). 
+> El fitrado se hace a partir de un *string* arbitrario. La idea es comprobar si este *string* arbitrario está contenido dentro del títlo de la película. Para esto se puede usar el método `contains` de los *Strings* en Java.
 
 
 ### Configuración de la información que se muestra
@@ -250,3 +250,21 @@ Cuando se sale de la pantalla de configuración, y se vuelve a la actividad prin
 
 > [!TIP]
 > `MoviesAdapter` ya tiene 3 atributos *boolean* que almacenan el estado de la configuración (`showTitle`, `showDirector`, `showYear`). Hay que modificar el método `getView` para tenerlos en cuenta.
+
+
+## Pasos extra
+
+Estas son algunas sugerencias de funcionalidades adicionales que se pueden incluir en la aplicación
+
+- Añadir más atributos al modelo `Movie`. Por ejemplo: estudio, pais, idioma, duración.
+    - Para esto hay que modificar la clase `Movie` y la fuente de los datos `res/raw/movies.json`
+    - Para que estos datos se vean en la interfaz de usuario, hay que modificar el *layout* de los elementos del `ListView` (`res/layout/movies_list_item_layout.xml`) y/o el *layout* de la vista detalle de cada película (`res/layout/movie_dialog_layout.xml`)
+
+- Añadir más películas.
+    - Para esto hay que modificar la fuente de los datos `res/raw/movies.json`
+    - Para obtener los posters de las películas se puede utilizar [https://www.movieposterdb.com/](https://www.movieposterdb.com/)
+
+- Hacer que la función de filtrado no busque sólo con el título de las películas
+
+
+

@@ -123,21 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Set-up the ListView with the Adapter created above
 
         // TODO: find the reference to the ListView, and set its adapter
-
-        /*
-
-        lvMovies.setAdapter(moviesAdapter);  // shows movies in ListView
-
-        // When an item in the list is clicked, show the popup with movie details
-        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movie = (Movie) view.getTag();  // movie is set as the view's tag in the adapter
-                showMoviePopupDetails(movie);
-            }
-        });
-
-        */
     }
 
     /**
@@ -258,34 +243,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // TODO fill the contents of "dialogView" with the information of the movie
 
-        /*
-
-        ImageView ivCover = dialogView.findViewById(R.id.ivCover);
-        TextView tvTitle = dialogView.findViewById(R.id.tvTitle);
-        TextView tvDirector = dialogView.findViewById(R.id.tvDirector);
-        TextView tvSynopsis = dialogView.findViewById(R.id.tvSynopsis);
-        TextView tvActors = dialogView.findViewById(R.id.tvActors);
-
-        int width = (int) MainActivity.this.getResources().getDimension(R.dimen.cover_width);
-        Picasso.get().load(movie.getCoverUrl())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .resize((int) (width * 1.4), 0)
-                .centerCrop()
-                .into(ivCover);
-        tvTitle.setText(movie.getTitle());
-        tvDirector.setText(movie.getDirector());
-        tvActors.setText(movie.getActors());
-        tvSynopsis.setText(movie.getSynopsis());
-
-        builder.setView(dialogView)
-                .setPositiveButton(R.string.close, (dialog, which) -> {
-                    // do nothing, just close
-                });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        */
     }
 
     /**
@@ -298,26 +255,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // TODO filter the elements of "shownMovies" according to "substring"
 
-        /*
-
-        shownMovies.clear();
-        if (substring == null || substring.isEmpty()) {
-            shownMovies.addAll(allMovies);
-        } else {
-            final String pattern = substring.toUpperCase().trim();
-            for (Movie movie : allMovies) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(movie.getTitle());
-                sb.append(movie.getYear());
-                sb.append(movie.getDirector());
-                final String movieString = sb.toString().toUpperCase();
-                if (movieString.contains(pattern)) {
-                    shownMovies.add(movie);
-                }
-            }
-        }
-
-        */
     }
 
 }
