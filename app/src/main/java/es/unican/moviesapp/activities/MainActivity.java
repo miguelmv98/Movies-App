@@ -1,5 +1,6 @@
 package es.unican.moviesapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -122,7 +123,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Set-up the ListView with the Adapter created above
 
-        // TODO: find the reference to the ListView, and set its adapter
+        lvMovies.setAdapter(moviesAdapter);
+
+        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = (Movie) view.getTag();
+                showMoviePopupDetails(movie);
+            }
+        });
     }
 
     /**
@@ -241,7 +250,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LayoutInflater inflater = MainActivity.this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.movie_dialog_layout, null);
 
-        // TODO fill the contents of "dialogView" with the information of the movie
+        TextView tvSynopsis = dialogView.findViewById(R.id.tvSynopsis);
+        tvSynopsis.setText(movie.getSynopsis());
+        TextView tvActors = dialogView.findViewById(R.id.tvActors);
+        tvActors.setText(movie.getActors());
+
+        builder.setView(dialogView);
+        builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
 
     }
 
@@ -252,8 +273,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param substring The substring to filter the movie titles, years, and directors by.
      */
     private void filterMoviesList(String substring) {
+            shownMovies.clear();
+            shownMovies.addAll(allMovies);
+            shownMovies.removeIf(movie -> !movie.getTitle().contains(substring));
 
-        // TODO filter the elements of "shownMovies" according to "substring"
 
     }
 
