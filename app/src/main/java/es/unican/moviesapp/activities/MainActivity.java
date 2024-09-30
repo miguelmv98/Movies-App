@@ -123,12 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         lvMovies.setAdapter(moviesAdapter);
 
-        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movie = (Movie) view.getTag();
-                showMoviePopupDetails(movie);
-            }
+        lvMovies.setOnItemClickListener((parent, view, position, id) -> {
+            Movie movie = (Movie) view.getTag();
+            showMoviePopupDetails(movie);
         });
     }
 
@@ -254,12 +251,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvActors.setText(movie.getActors());
 
         builder.setView(dialogView);
-        builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setPositiveButton(R.string.close, (dialog, which) -> dialog.cancel());
         builder.create().show();
 
     }

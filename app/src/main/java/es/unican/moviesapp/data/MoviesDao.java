@@ -49,22 +49,20 @@ public class MoviesDao {
      */
     private List<Movie> createMoviesList() {
         List<Movie> result = null;
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.movies);
+        try (InputStream is = context.getResources().openRawResource(R.raw.movies)){
+
             int size = is.available();
             byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
+            while(is.read(buffer)>0){
+                // Convert buffer to string
+                String json = new String(buffer, StandardCharsets.UTF_8);
 
-            // Convert buffer to string
-            String json = new String(buffer, StandardCharsets.UTF_8);
-
-            // Parse JSON using Gson
-            Gson gson = new Gson();
-            Type movieListType = new TypeToken<List<Movie>>() {
-            }.getType();
-            result = gson.fromJson(json, movieListType);
-
+                // Parse JSON using Gson
+                Gson gson = new Gson();
+                Type movieListType = new TypeToken<List<Movie>>() {
+                }.getType();
+                result = gson.fromJson(json, movieListType);
+            }
         } catch (IOException e) {
             Log.e(MoviesDao.class.getSimpleName(), "Error reading movies.json", e);
         }
