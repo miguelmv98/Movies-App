@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +24,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -273,9 +271,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param substring The substring to filter the movie titles, years, and directors by.
      */
     private void filterMoviesList(String substring) {
-            shownMovies.clear();
+        shownMovies.clear();
+        if(substring.isBlank() || substring.isEmpty()){
             shownMovies.addAll(allMovies);
-            shownMovies.removeIf(movie -> !movie.getTitle().contains(substring));
+        }else{
+            for (Movie movie: allMovies) {
+                if(movie.getTitle().contains(substring)){
+                    shownMovies.add(movie);
+                }
+            }
+        }
 
 
     }

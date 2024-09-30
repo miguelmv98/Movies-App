@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Locale;
 
 import es.unican.moviesapp.R;
 import es.unican.moviesapp.models.Movie;
@@ -142,11 +141,11 @@ public class MoviesAdapter extends BaseAdapter {
         ImageView ivCover = convertView.findViewById(R.id.ivCover);
         Picasso.get().load(movie.getCoverUrl()).into(ivCover);
         TextView tvTitle = convertView.findViewById(R.id.tvTitle);
-        tvTitle.setText(movie.getTitle());
+        tvTitle.setText(showTitle ? movie.getTitle() : "");
         TextView tvYear = convertView.findViewById(R.id.tvYear);
-        tvYear.setText(String.valueOf(movie.getYear()));
+        tvYear.setText(showYear ? String.valueOf(movie.getYear()) : "");
         TextView tvDirector = convertView.findViewById(R.id.tvDirector);
-        tvDirector.setText(movie.getDirector());
+        tvDirector.setText(showDirector ? movie.getDirector() : "");
         convertView.setTag(movie);
 
         return convertView;
